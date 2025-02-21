@@ -1,46 +1,9 @@
-version: '3.8'
-
 services:
   frontend:
-    image: node:16-slim  
+    build:
+      context: ../m-motors-frontend
     container_name: m-motors-frontend
-    working_dir: /app
     volumes:
-      - ./m-motors-frontend:/app  
+      - /app/node_modules  # Save node_modules for Avoid conflicts with dependencies
     ports:
-      - "3000:3000"  
-    command: "npm start"  
-    depends_on:
-      - backend  
-
-  backend:
-    image: python:3.9-slim 
-    container_name: m-motors-backend
-    environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: fastapi_user
-      MYSQL_PASSWORD: fastapi_pass
-      MYSQL_DATABASE: fastapi_db
-    depends_on:
-      - mysql  
-    ports:
-      - "8000:8000"  
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-    restart: always
-
-  mysql:
-    image: mysql:8
-    container_name: mysql_fastapi
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: fastapi_db
-      MYSQL_USER: fastapi_user
-      MYSQL_PASSWORD: fastapi_pass
-    ports: 
-      - "3306:3306" 
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-volumes:
-  mysql_data:
+      - "3000:3000"
