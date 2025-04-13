@@ -25,7 +25,9 @@ export const API_ROUTES = {
     LIST: '/reservations',
     CREATE: '/reservations/create',
     DETAIL: '/reservations/:reservation_id',
-    UPDATE_STATUS: '/reservations/:reservation_id/status'
+    UPDATE_STATUS: '/reservations/:reservation_id/status',
+    DOCUMENTS: '/reservations/:reservation_id/documents',
+    USER_RESERVATIONS: '/reservations/user/:user_id'
   },
   
   FILTERS: {

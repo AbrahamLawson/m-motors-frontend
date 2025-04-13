@@ -31,7 +31,7 @@ export const reservationService = {
   },
 
   getUserReservations: async (userId) => {
-    const response = await api.get(`/reservations/user/${userId}`);
+    const response = await api.get(API_ROUTES.RESERVATIONS.USER_RESERVATIONS.replace(':user_id', userId));
     return response.data;
   },
 
@@ -42,7 +42,7 @@ export const reservationService = {
     });
 
     const response = await api.post(
-      `/reservations/${reservationId}/documents`,
+      API_ROUTES.RESERVATIONS.DOCUMENTS.replace(':reservation_id', reservationId),
       formData,
       {
         headers: {
@@ -54,7 +54,7 @@ export const reservationService = {
   },
 
   getReservationDocuments: async (reservationId) => {
-    const response = await api.get(`/reservations/${reservationId}/documents`);
+    const response = await api.get(API_ROUTES.RESERVATIONS.DOCUMENTS.replace(':reservation_id', reservationId));
     return response.data;
   }
 };
