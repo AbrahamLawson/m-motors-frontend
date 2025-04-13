@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import VehicleDetails from "./pages/VehicleDetails";
 import ReservationForm from "./pages/ReservationForm";
 import Profile from "./pages/Profile";
 import UserDashboard from "./pages/UserDashboard";
@@ -10,6 +9,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AddVehicle from "./pages/AddVehicle";
 import Navbar from "./components/UI/Navbar";
 import Footer from "./components/UI/Footer";
+import VehiculeList from "./components/VehicleList";
+import VehiculeDetails from "./pages/VehicleDetails";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/vehicle/:id" element={<VehicleDetails />} />
+        <Route path="/vehicules/:id" element={<VehiculeDetails />} />
+        <Route path="/vehicules" element={<VehiculeList />} />
         <Route path="/reservation/:id" element={<ReservationForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<UserDashboard />} />
@@ -32,3 +34,4 @@ function App() {
 }
 
 export default App;
+
