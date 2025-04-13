@@ -1,28 +1,37 @@
 import api from './api';
+import { API_ROUTES } from '../config/routes';
 
 export const reservationService = {
-  createReservation: async (reservationData) => {
-    const response = await api.post('/reservations/create', reservationData);
+  getAll: async () => {
+    const response = await api.get(API_ROUTES.RESERVATIONS.LIST);
     return response.data;
   },
 
-  getAllReservations: async () => {
-    const response = await api.get('/reservations');
+  create: async (reservationData) => {
+    const response = await api.post(API_ROUTES.RESERVATIONS.CREATE, reservationData);
+    return response.data;
+  },
+
+  getById: async (id) => {
+    const response = await api.get(API_ROUTES.RESERVATIONS.DETAIL.replace(':reservation_id', id));
+    return response.data;
+  },
+
+  updateStatus: async (id, status) => {
+    const response = await api.patch(
+      API_ROUTES.RESERVATIONS.UPDATE_STATUS.replace(':reservation_id', id),
+      { status },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
     return response.data;
   },
 
   getUserReservations: async (userId) => {
     const response = await api.get(`/reservations/user/${userId}`);
-    return response.data;
-  },
-
-  getReservationById: async (id) => {
-    const response = await api.get(`/reservations/${id}`);
-    return response.data;
-  },
-
-  updateReservationStatus: async (id, status) => {
-    const response = await api.patch(`/reservations/${id}/status`, { status });
     return response.data;
   },
 

@@ -1,32 +1,32 @@
 import api from './api';
+import { API_ROUTES } from '../config/routes';
 
-export const authService = {
-  login: async (email, password) => {
-    const response = await api.post('/auth/login', { email, password });
+export const vehicleService = {
+  getAll: async () => {
+    const response = await api.get(API_ROUTES.VEHICLES.LIST);
     return response.data;
   },
 
-  register: async (userData) => {
-    const response = await api.post('/auth/register', userData);
+  getById: async (id) => {
+    const response = await api.get(API_ROUTES.VEHICLES.DETAIL.replace(':vehicule_id', id));
     return response.data;
   },
 
-  logout: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  create: async (vehicleData) => {
+    const response = await api.post(API_ROUTES.VEHICLES.CREATE, vehicleData);
+    return response.data;
   },
 
-  getCurrentUser: () => {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+  update: async (id, vehicleData) => {
+    const response = await api.put(
+      API_ROUTES.VEHICLES.UPDATE.replace(':vehicule_id', id),
+      vehicleData
+    );
+    return response.data;
   },
 
-  verifyToken: async () => {
-    try {
-      const response = await api.get('/auth/verify');
-      return response.data;
-    } catch (error) {
-      return null;
-    }
+  delete: async (id) => {
+    const response = await api.delete(API_ROUTES.VEHICLES.DELETE.replace(':vehicule_id', id));
+    return response.data;
   }
 };
