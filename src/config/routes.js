@@ -1,24 +1,23 @@
 export const API_ROUTES = {
   AUTH: {
-    LOGIN: '/login',
-    REGISTER: '/register',
-    VERIFY: '/verify',
-    PROFILE: '/profile'
+    LOGIN: '/api/auth/login',
+    SIGNUP: '/api/auth/signup',
+    VERIFY: '/api/auth/verify',
+    PROFILE: '/api/auth/profile'
   },
   
   VEHICLES: {
-    LIST: '/',
-    DETAIL: '/:vehicule_id',
-    CREATE: '/',
-    UPDATE: '/:vehicule_id',
-    DELETE: '/:vehicule_id'
+    LIST: '/vehicles',
+    DETAIL: '/vehicles/:id',
+    CREATE: '/vehicles',
+    UPDATE: '/vehicles/:id',
+    DELETE: '/vehicles/:id'
   },
   
   DOSSIERS: {
-    LIST: '/api/dossiers',
-    UPLOAD: '/api/dossiers/upload',
-    STATUS: '/api/dossiers/:id/status',
-    DETAIL: '/api/dossiers/:id'
+    LIST: '/dossiers',
+    UPLOAD: '/dossiers/upload',
+    STATUS: '/dossiers/:id/status'
   },
   
   RESERVATIONS: {

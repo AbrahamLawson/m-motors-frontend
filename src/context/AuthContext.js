@@ -12,39 +12,48 @@ export const AuthProvider = ({ children }) => {
     // Vérifier si l'utilisateur est déjà connecté au chargement
     const token = localStorage.getItem('token');
     if (token) {
-      fetchUserData();
-    } else {
-      setLoading(false);
+      // Nous n'avons pas de route de profil, donc nous ne pouvons pas récupérer les données utilisateur
+      // Nous allons simplement vérifier que le token existe et mettre un utilisateur générique
+      setUser({ isLoggedIn: true });
     }
+    setLoading(false);
   }, []);
-
-  const fetchUserData = async () => {
-    try {
-      const response = await api.get('/api/user/profile');
-      setUser(response.data);
-      setError(null);
-    } catch (err) {
-      console.error('Erreur lors de la récupération des données utilisateur:', err);
-      setError('Impossible de charger les données utilisateur');
-      logout();
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const login = async (email, password) => {
     try {
       setLoading(true);
-      const response = await api.post('/api/auth/login', { email, password });
-      const { token, user } = response.data;
       
-      localStorage.setItem('token', token);
-      setUser(user);
-      setError(null);
-      return true;
+      // Utiliser la méthode oauth pour les requêtes OAuth2
+      const response = await api.oauth('/api/auth/login', {
+        username: email,
+        password: password
+      });
+      
+      console.log('Réponse de login:', response.data);
+      
+      if (response.data) {
+        const { access_token } = response.data;
+        localStorage.setItem('token', access_token);
+        
+        // Puisque nous n'avons pas d'informations détaillées sur l'utilisateur,
+        // nous allons juste définir un utilisateur générique
+        setUser({ 
+          email: email,
+          isLoggedIn: true
+        });
+        
+        setError(null);
+        return true;
+      } else {
+        setError('Réponse de connexion invalide');
+        return false;
+      }
     } catch (err) {
       console.error('Erreur de connexion:', err);
-      setError(err.response?.data?.message || 'Erreur de connexion');
+      const errorMessage = typeof err.response?.data?.detail === 'string' 
+        ? err.response.data.detail 
+        : 'Erreur de connexion';
+      setError(errorMessage);
       return false;
     } finally {
       setLoading(false);
@@ -54,11 +63,16 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       setLoading(true);
-      const response = await api.post('/api/auth/register', userData);
-      const { token, user } = response.data;
+      const response = await api.post('/api/auth/signup', userData);
+      const { access_token, user } = response.data;
       
-      localStorage.setItem('token', token);
-      setUser(user);
+      localStorage.setItem('token', access_token);
+      setUser(user || { 
+        email: userData.email,
+        first_name: userData.first_name,
+        last_name: userData.last_name,
+        isLoggedIn: true
+      });
       setError(null);
       return true;
     } catch (err) {

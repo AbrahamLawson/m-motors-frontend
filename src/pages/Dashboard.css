@@ -1,0 +1,192 @@
+/* Styles pour le tableau de bord */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.dashboard-header {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.dashboard-email {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.dashboard-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Formulaire d'upload */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+}
+
+.file-input-label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.file-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.file-input::-webkit-file-upload-button {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Tableaux */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background-color: #f9fafb;
+  font-weight: 500;
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.empty-message {
+  color: #6b7280;
+  font-size: 14px;
+  padding: 20px 0;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Liens dans les tableaux */
+.dashboard-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.dashboard-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Statuts */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-approved, 
+.status-confirmed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-rejected,
+.status-cancelled {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Boutons */
+.dashboard-button {
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dashboard-button:hover {
+  background-color: #2563eb;
+}
+
+.dashboard-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Message d'erreur */
+.error-message {
+  padding: 12px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+/* Chargement */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+} 

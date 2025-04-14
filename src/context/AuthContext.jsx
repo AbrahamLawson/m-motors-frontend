@@ -1,31 +1,46 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../services/api';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { API_ROUTES } from '../config/routes';
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      fetchUserData();
-    } else {
-      setLoading(false);
-    }
+    const checkToken = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        await fetchUserData(token);
+      } else {
+        setLoading(false);
+      }
+    };
+    
+    checkToken();
   }, []);
 
-  const fetchUserData = async () => {
+  const fetchUserData = async (token) => {
     try {
-      const response = await api.get('/profile');
-      setUser(response.data);
-      setError(null);
-    } catch (err) {
-      console.error('Erreur lors de la récupération des données utilisateur:', err);
-      setError('Impossible de charger les données utilisateur');
-      logout();
+      const response = await fetch(API_ROUTES.AUTH.PROFILE, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
+      } else {
+        localStorage.removeItem('token');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données utilisateur:', error);
+      localStorage.removeItem('token');
     } finally {
       setLoading(false);
     }
@@ -33,55 +48,63 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      setLoading(true);
-      const response = await api.post('/login', { username: email, password });
-      const { access_token } = response.data;
-      
-      localStorage.setItem('token', access_token);
-      await fetchUserData();
-      return true;
-    } catch (err) {
-      console.error('Erreur de connexion:', err);
-      setError(err.response?.data?.detail || 'Erreur de connexion');
-      return false;
-    } finally {
-      setLoading(false);
+      const response = await fetch(API_ROUTES.AUTH.LOGIN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.access_token);
+        await fetchUserData(data.access_token);
+        return { success: true };
+      } else {
+        const error = await response.json();
+        return { success: false, error: error.message };
+      }
+    } catch (error) {
+      return { success: false, error: 'Une erreur est survenue lors de la connexion' };
     }
   };
 
-  const register = async (userData) => {
+  const signup = async (userData) => {
     try {
-      setLoading(true);
-      const response = await api.post('/register', userData);
-      const { access_token } = response.data;
-      
-      localStorage.setItem('token', access_token);
-      await fetchUserData();
-      return true;
-    } catch (err) {
-      console.error('Erreur d\'inscription:', err);
-      setError(err.response?.data?.detail || 'Erreur d\'inscription');
-      return false;
-    } finally {
-      setLoading(false);
+      const response = await fetch(API_ROUTES.AUTH.SIGNUP, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.access_token);
+        setUser(data.user);
+        return { success: true };
+      } else {
+        const error = await response.json();
+        return { success: false, error: error.message };
+      }
+    } catch (error) {
+      return { success: false, error: 'Une erreur est survenue lors de l\'inscription' };
     }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
-    setError(null);
   };
 
   const value = {
     user,
     loading,
-    error,
     login,
-    register,
+    signup,
     logout,
-    isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin'
   };
 
   return (
@@ -89,12 +112,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth doit être utilisé à l\'intérieur d\'un AuthProvider');
-  }
-  return context;
 }; 

@@ -1,0 +1,102 @@
+/* Styles pour la navbar */
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.navbar-link {
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: color 0.2s;
+}
+
+.navbar-link:hover {
+  color: #3b82f6;
+}
+
+.navbar-link.active {
+  color: #3b82f6;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.navbar-auth {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-button {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.navbar-button.login {
+  background-color: transparent;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}
+
+.navbar-button.login:hover {
+  background-color: #f3f4f6;
+}
+
+.navbar-button.signup {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+}
+
+.navbar-button.signup:hover {
+  background-color: #2563eb;
+}
+
+/* Styles pour l'utilisateur connecté */
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+} 

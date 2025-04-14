@@ -1,0 +1,269 @@
+/* Styles généraux */
+.vehicle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Layout */
+.layout-container {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Filtres */
+.filters-column {
+  width: 300px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-right: 1px solid #ddd;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.date-label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.radio-label input[type="radio"] {
+  margin-right: 8px;
+}
+
+.price-inputs, .date-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.price-inputs input {
+  width: 50%;
+}
+
+.date-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.primary-button {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.primary-button:hover {
+  background-color: #2563eb;
+}
+
+.secondary-button {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.secondary-button:hover {
+  background-color: #d1d5db;
+}
+
+/* Liste des véhicules */
+.vehicles-column {
+  flex: 1;
+  padding: 20px;
+  background-color: white;
+}
+
+.vehicles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vehicle-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+.vehicle-item:hover {
+  background-color: #f9fafb;
+}
+
+.vehicle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.vehicle-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+}
+
+.vehicle-price {
+  font-size: 14px;
+  color: #666;
+}
+
+.vehicle-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vehicle-tag {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.empty-state {
+  background-color: #f9fafb;
+  border-radius: 6px;
+}
+
+/* Media queries pour la responsivité */
+@media (max-width: 768px) {
+  .layout-container {
+    flex-direction: column;
+  }
+  
+  .filters-column {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+/* Ajouter des styles pour le filtre de marques avec cases à cocher */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6;
+}
+
+.brands-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.brand-action-btn {
+  padding: 6px 12px;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.brand-action-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Styles pour l'affichage des prix */
+.vehicle-price {
+  font-weight: bold;
+  font-size: 18px;
+  color: #3b82f6;
+  margin-top: 4px;
+}
+
+/* Ajout d'un style pour le prix par jour */
+.price-per-day {
+  font-size: 14px;
+  color: #6b7280;
+} 
